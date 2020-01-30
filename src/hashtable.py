@@ -56,6 +56,12 @@ class HashTable:
         # Store the value with the given key.
         idx = self._hash_mod(key)
         print('idx', idx)
+        head = self.storage[idx]  # stores idx into variable called head
+
+        if head is None:
+            head = LinkedPair(key, value)
+
+
 
 
 
