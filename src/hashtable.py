@@ -15,7 +15,7 @@ class HashTable:
     def __init__(self, capacity):
         self.capacity = capacity  # Number of buckets in the hash table
         self.storage = [None] * capacity
-
+        self.count_entries = 0  # current number of items, used to set index of added values
 
     def _hash(self, key):
         '''
@@ -51,7 +51,11 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        # pass
+
+        # Store the value with the given key.
+        idx = self._hash_mod(key)
+        print('idx', idx)
 
 
 
