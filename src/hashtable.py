@@ -42,7 +42,7 @@ class HashTable:
         '''
         return self._hash(key) % self.capacity
 
-
+        
     def insert(self, key, value):
         '''
         Store the value with the given key.
@@ -53,14 +53,64 @@ class HashTable:
         '''
         # pass
 
-        # Store the value with the given key.
+        # index via hash method
         idx = self._hash_mod(key)
         print('idx', idx)
-        head = self.storage[idx]  # stores idx into variable called head
+        # head = self.storage[idx]  # stores idx into variable called head
+        # head = LinkedPair(key, value)
+        # # if head is None:
+        # #     head = LinkedPair(key, value)
+        # #     print(head)
+        # #     self.count_entries += 1
 
-        if head is None:
-            head = LinkedPair(key, value)
-
+        if self.storage[idx] is None:
+            self.storage[idx] = LinkedPair(key, value)
+            print(self.storage[idx])
+            self.count_entries += 1
+        else:
+        # if self.storage[idx] is not None:
+        #     head.next = self.storage[idx]
+        #     print('self.storage[idx]', self.storage[idx])
+        #     print('head.next', head.next)
+        #     self.count_entries += 1
+        # self.storage[idx] = head
+            current = self.storage[idx]
+            if current.key == key:
+                current.value = value
+                print('value', value)
+                return
+            while current.next is not None:
+                # if next is none, make the current.next the LinkedPair
+                current = current.next
+                print(current)
+                if current.key == key:
+                    current.value = value
+                    print('value2', value)
+                    return
+            # if current.next is None:
+            current.next = LinkedPair(key, value)
+            self.count_entries += 1
+            # return
+        # else:
+            
+        #     # linked list 
+        #     current = self.storage[idx]
+        #     if current.key == key:
+        #         current.value = value
+        #         print('value', value)
+        #         return key
+        #     while current.next is not None:
+        #         # if next is none, make the current.next the LinkedPair
+        #         current = current.next
+        #         print(current)
+        #         if current.key == key:
+        #             current.value = value
+        #             print('value2', value)
+        #             return value
+        #     # if current.next is None:
+        #         current.next = LinkedPair(key, value)
+        #         self.count_entries += 1
+        #         return current.next
 
 
 
@@ -73,9 +123,21 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
-
-
+        #pass
+        idx = self._hash_mod(key)
+        
+        current = self.storage[idx]
+        if current is None:
+            return current
+        if current.key == key:
+            self.storage[idx] = current.next
+            return
+        new_node = current.next
+        while new_node is not None:
+            if current.next.key == key:
+                current.key = new_node.key
+                return
+            new_node.next = None
     def retrieve(self, key):
         '''
         Retrieve the value stored with the given key.
@@ -84,7 +146,19 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+      
+        idx = self._hash_mod(key)
+        current = self.storage[idx]
+        while current is not None:
+        # if next is none, make the current.next the LinkedPair
+        
+            print(current)
+            if current.key == key:
+                print('value2', current.value)
+                return current.value
+            current = current.next
+        return None
+            
 
 
     def resize(self):
