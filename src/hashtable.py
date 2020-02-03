@@ -128,16 +128,21 @@ class HashTable:
         
         current = self.storage[idx]
         if current is None:
+            print('current', current)
             return current
         if current.key == key:
             self.storage[idx] = current.next
+            print('current.next', current.next)
             return
         new_node = current.next
         while new_node is not None:
-            if current.next.key == key:
-                current.key = new_node.key
+            if new_node.key == key:
+                current.next = new_node.next
+                print('current.next', current.next)
                 return
-            new_node.next = None
+            current = new_node
+            new_node = new_node.next
+           
     def retrieve(self, key):
         '''
         Retrieve the value stored with the given key.
@@ -149,6 +154,9 @@ class HashTable:
       
         idx = self._hash_mod(key)
         current = self.storage[idx]
+        if current is None:
+            print('retrieve NONE', None)
+            return None
         while current is not None:
         # if next is none, make the current.next the LinkedPair
         
@@ -157,7 +165,7 @@ class HashTable:
                 print('value2', current.value)
                 return current.value
             current = current.next
-        return None
+        # return None
             
 
 
