@@ -165,7 +165,6 @@ class HashTable:
                 print('value2', current.value)
                 return current.value
             current = current.next
-        # return None
             
 
 
@@ -176,7 +175,29 @@ class HashTable:
 
         Fill this in.
         '''
-        pass
+        
+        # set the max length of the array
+ 
+        self.capacity *= 2
+        print('resize, self.value', self.capacity)
+        the_storage = self.storage
+        # make a new array, which is double the size of the old array
+        self.storage = [None] * self.capacity
+        print('temp_storage', self.storage)
+        
+
+        # copy everything into new array
+        #for i in range(self.capacity // 2):
+        for current in the_storage:
+            while current is not None:
+               # index = self._hash_mod(current.key)
+
+                self.insert(current.key, current.value)
+                current = current.next
+
+            # print('temp_storage[i]', temp_storage[i])
+        #self.storage = temp_storage.storage
+       
 
 
 
